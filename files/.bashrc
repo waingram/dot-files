@@ -58,6 +58,8 @@ fi
 alias df='df -h'
 alias less='less -R'
 
+[[ -s "/home/wingram2/.rvm/scripts/rvm" ]] && source "/home/wingram2/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+
 . ~/.aliases/git
 . ~/.aliases/svn
 . ~/.aliases/commands
