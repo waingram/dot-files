@@ -46,3 +46,5 @@ function self-insert-backslash() { LBUFFER+='\'; zle .self-insert }
 zle -N self-insert-backslash
 
 [[ -d "$HOME/.rbenv" ]] && export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
+
+[[ -s "/home/wingram2/.rvm/scripts/rvm" ]] && source "/home/wingram2/.rvm/scripts/rvm"  # This loads RVM into a shell session.
