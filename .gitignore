@@ -1,3 +1,8 @@
 files/.ssh/*id*
 files/.ssh/authorized_keys
 files/.ssh/known_hosts
+files/.emacs.d/auto-save-list/*
+files/.emacs.d/backups/*
+files/.emacs.d/elpa/*
+files/.emacs.d/places/*
+files/.emacs.d/session.*
