@@ -1,0 +1,39 @@
+
+;; ----- smex-history -----
+(
+ magit-status
+ indent-region
+ esk-insert-date
+ org-agenda
+ org-mode
+ load-file
+ yas/minor-mode
+)
+
+;; ----- smex-data -----
+(
+ (text-mode . 1)
+ (load-file . 4)
+ (switch-full-screen . 1)
+ (fullscreen . 2)
+ (time-stamp . 2)
+ (eval-buffer . 2)
+ (yas/next-field-or-maybe-expand . 1)
+ (yas/expand . 9)
+ (yas/minor-mode . 6)
+ (yas/tryout-snippet . 1)
+ (yas/minor-mode-menu . 1)
+ (yas/minor-mode-on . 1)
+ (org-mode . 2)
+ (org-mode-restart . 1)
+ (esk-insert-date . 6)
+ (org-at-timestamp-p . 1)
+ (org-agenda . 1)
+ (org-timestamp-up . 1)
+ (org-deadline . 3)
+ (org-time-stamp . 1)
+ (org-insert-todo-subheading . 1)
+ (org-toggle-checkbox . 1)
+ (indent-region . 2)
+ (magit-status . 1)
+)
