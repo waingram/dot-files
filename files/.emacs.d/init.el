@@ -18,10 +18,15 @@
   (package-refresh-contents))
 
 (defvar my-packages '(starter-kit
-                      starter-kit-lisp 
+                      starter-kit-lisp
                       starter-kit-bindings
-                      starter-kit-ruby
+                      starter-kit-eshell
+                      zenburn-theme
+                      clojure-mode
+                      closure-test-mode
                       markdown-mode
+                      sass-mode
+                      haml-mode                      
                       yasnippet
                       yaml-mode
                       ))
@@ -30,6 +35,8 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
+
+;; fullscreen
 (defun fullscreen (&optional f)
        (interactive)
        (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
@@ -38,15 +45,96 @@
                               '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0)))
 
 (fullscreen)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/Dropbox/work/org/work-log.org"))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+
+;; org stuff
+(add-hook 'org-mode-hook
+          '(lambda ()
+             (define-key org-mode-map "\C-ca"
+               'org-agenda)))
+
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "INPROGRESS(i)" "|" "DONE(d)")))
+
+(setq org-directory "~/Dropbox/work/org")
+(set org-default-notes-file (concat org-directory "/todo.org"))
+(define-key global-map "\C-cr" 'org-remember)
+
+
+;; Export for twiki
+(org-set-generic-type
+ "twiki"
+ '(:file-suffix        	    ".txt"
+     :key-binding                   ?T
+
+     :header-prefix            	    ""
+     :header-suffix            	    ""
+
+     :title-format             	    ""
+
+     :date-export        	        t
+     :date-format                   ""
+
+     :toc-export                    nil
+
+     :body-header-section-numbers   nil
+     :body-section-prefix           "\n"
+
+     :body-section-header-prefix    ("---+ " "---++ "
+				     "---+++ " "---++++ " "---+++++ ")
+     :body-section-header-suffix    ("\n" "\n" "\n" "\n" "\n")
+
+     :body-line-export-preformated  t          ;; yes/no/maybe???
+     :body-line-format              "%s\n"
+     :body-line-wrap                75
+
+     :body-line-fixed-prefix       "<verbatim>\n"
+     :body-line-fixed-format       "%s\n"
+     :body-line-fixed-suffix       "</verbatim>\n"
+
+     :body-list-format              "%s\n"
+     :body-number-list-format       "  # %s\n"
+
+     :body-bullet-list-prefix       ("   * " "      * " "         * "
+                                     "            * " "               * ")
+     )
  )
+
+;; Export for confluence
+(org-set-generic-type
+ "confluence"
+ '(:file-suffix        	    ".txt"
+     :key-binding                   ?C
+
+     :header-prefix            	    ""
+     :header-suffix            	    ""
+
+     :title-format             	    "{panel:bgColor=#f0f0f0}\n{toc:outline=true|style=none|indent=10px}\n{panel}\n\n"
+
+     :date-export        	        t
+     :date-format                   ""
+
+     :toc-export                    nil
+
+     :body-header-section-numbers   nil
+     :body-section-prefix           ""
+
+     :body-section-header-prefix    ("h1. " "h2. " "h3. " "h4. " "h5. ")
+     :body-section-header-suffix    ("\n" "\n" "\n" "\n" "\n")
+
+     :body-line-export-preformated  t          ;; yes/no/maybe???
+     :body-line-format              "%s\n"
+     :body-line-wrap                75
+
+     :body-line-fixed-prefix       "{{"
+     :body-line-fixed-format       "%s"
+     :body-line-fixed-suffix       "}}"
+
+     :body-list-format              "%s\n"
+     :body-number-list-format       "# %s\n"
+
+     :body-bullet-list-prefix       ("* " "** " "*** " "**** " "***** ")
+     )
+ )
+
+'(org-agenda-files (quote ("~/Dropbox/work/org/work-log.org")))
+

@@ -1,8 +1,8 @@
 
 ;; ----- smex-history -----
 (
- magit-status
  indent-region
+ magit-status
  esk-insert-date
  org-agenda
  org-mode
@@ -34,6 +34,6 @@
  (org-time-stamp . 1)
  (org-insert-todo-subheading . 1)
  (org-toggle-checkbox . 1)
- (indent-region . 2)
+ (indent-region . 4)
  (magit-status . 1)
 )
