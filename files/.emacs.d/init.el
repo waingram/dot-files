@@ -21,9 +21,7 @@
                       starter-kit-lisp
                       starter-kit-bindings
                       starter-kit-eshell
-                      zenburn-theme
                       clojure-mode
-                      closure-test-mode
                       markdown-mode
                       sass-mode
                       haml-mode                      
@@ -46,6 +44,10 @@
 
 (fullscreen)
 
+;; zenburn ( until they fix it in marmalade )
+(load
+ (expand-file-name "~/.emacs.d/elisp/zenburn-theme-1.2.el"))
+
 ;; org stuff
 (add-hook 'org-mode-hook
           '(lambda ()
@@ -56,9 +58,11 @@
       '((sequence "TODO(t)" "INPROGRESS(i)" "|" "DONE(d)")))
 
 (setq org-directory "~/Dropbox/work/org")
-(set org-default-notes-file (concat org-directory "/todo.org"))
+(setq org-default-notes-file (concat org-directory "/todo.org"))
 (define-key global-map "\C-cr" 'org-remember)
 
+(load
+ (expand-file-name "~/.emacs.d/elisp/org-export-generic.el"))
 
 ;; Export for twiki
 (org-set-generic-type
