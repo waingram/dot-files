@@ -5,7 +5,7 @@
 ;;
 ;; Thu 19 Jan 2012 10:58:01 AM CST William Ingram wingram2@illinois.edu
 ;; Removed yasnippets -- doesn't play well in org-mode
-
+;;
 
 
 ;; Packages
