@@ -121,6 +121,7 @@
 
      :body-header-section-numbers   nil
      :body-section-prefix           ""
+     :body-section-suffix           "\n"
 
      :body-section-header-prefix    ("h1. " "h2. " "h3. " "h4. " "h5. ")
      :body-section-header-suffix    ("\n" "\n" "\n" "\n" "\n")
@@ -129,16 +130,25 @@
      :body-line-format              "%s\n"
      :body-line-wrap                75
 
-     :body-line-fixed-prefix       "{{"
-     :body-line-fixed-format       "%s"
-     :body-line-fixed-suffix       "}}"
+     :body-line-fixed-prefix        "{{"
+     :body-line-fixed-format        "%s"
+     :body-line-fixed-suffix        "}}"
 
      :body-list-format              "%s\n"
      :body-number-list-format       "# %s\n"
 
      :body-bullet-list-prefix       ("* " "** " "*** " "**** " "***** ")
+
+     :body-list-checkbox-todo       "{{\[ \]}} "
+     :body-list-checkbox-todo-end   ""
+     :body-list-checkbox-done       "{{\[X\]}} "
+     :body-list-checkbox-done-end   ""
+     :body-list-checkbox-half       "{{\[-\]}} "
+     :body-list-checkbox-half-end   ""
+
      )
  )
 
 '(org-agenda-files (quote ("~/Dropbox/work/org/work-log.org")))
 
+(find-file (expand-file-name "~/Dropbox/work/org/ideals-todo.org"))
