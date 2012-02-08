@@ -6,3 +6,4 @@ files/.emacs.d/backups/*
 files/.emacs.d/elpa/*
 files/.emacs.d/places/*
 files/.emacs.d/session.*
+files/.emacs.d/.smex-items
