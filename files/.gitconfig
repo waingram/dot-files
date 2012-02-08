@@ -5,7 +5,7 @@
 	excludesfile = /home/wingram2/.gitignore
 [github]
 	user = waingram
-	token = 34443912b426d566859a40ebc12a19
+	token = xxx
 [alias]
         co = checkout
         # Log display from screencast, with train tracks.
