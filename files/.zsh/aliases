@@ -14,6 +14,8 @@ alias lal='ls -lah'
 alias s='git status -sb $argv; return 0'
 alias d='gd $argv'
 alias m='mate . $argv'
+alias emacs='emacs -nw'
+alias e='emacs'
 
 alias df='df -kh $argv'
 alias reload_webkit='osascript -e 'tell application "WebKit" to do JavaScript "window.location.reload()" in front document''
