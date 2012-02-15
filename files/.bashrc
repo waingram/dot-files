@@ -63,3 +63,7 @@ alias less='less -R'
 . ~/.aliases/git
 . ~/.aliases/svn
 . ~/.aliases/commands
+
+if [ -x /usr/games/fortune ]; then
+    /usr/games/fortune -s
+fi
