@@ -475,6 +475,9 @@ in this way, it will be wrapped."
 
 (setq org-generic-export-type "demo")
 
+(defvar org-export-generic-section-type "")
+(defvar org-export-generic-section-suffix "")
+
 ;;;###autoload
 (defun org-set-generic-type (type definition)
   "Adds a TYPE and DEFINITION to the existing list of defined generic
@@ -512,63 +515,37 @@ is \"\\n\".  Should typically be combined with a value for
 (def-org-export-generic-keyword :code-format)
 (def-org-export-generic-keyword :verbatim-format)
 
-(defvar org-export-generic-section-stack nil)
-;;overridden for specific importers
-(defvar org-export-generic-list-indents '(("numliststart" . "  ")("liststart" . "  ")))
 
-(defun org-export-generic-section-indent (stack listindents)
-  (loop for level in stack
-        collect (assoc-default (nth 0 level) listindents) into l
-        finally return (mapconcat 'identity l "")))
 
-(defun org-export-generic-check-section (type &optional prefix suffix nest)
-  "Checks to see if type is already in use, or we're switching parts
+
+(defun org-export-generic-remember-section (type suffix &optional prefix)
+  (setq org-export-generic-section-type type)
+  (setq org-export-generic-section-suffix suffix)
+  (if prefix
+      (insert prefix))
+)
+
+(defun org-export-generic-check-section (type &optional prefix suffix)
+  "checks to see if type is already in use, or we're switching parts
 If we're switching, then insert a potentially previously remembered
 suffix, and insert the current prefix immediately and then save the
 suffix a later change time."
-  (flet ((push-section (type suffix nest) (push (list type suffix nest) org-export-generic-section-stack)))
-    (let* ((prev (car-safe org-export-generic-section-stack))
-          (prev-type   (nth 0 prev))
-          (prev-suffix (nth 1 prev))
-          (prev-nest   (nth 2 prev)))
-      (setq nest (or nest 0) prev-nest (or prev-nest 0)) ;;convert nil nesting to 0 (wrong?)
-      (if (not prev)
-       (push-section type suffix nest) ;;no prior
-       ;;else, diff't context, three possiblities: deeper nesting, un-nest,start new type
-       (unless (and (string= type prev-type) (= nest prev-nest))
-         (cond
-          ;;nest deeper
-          ((> nest prev-nest)
-           (push-section type suffix nest)
-           (if prefix (insert prefix)))
-          ;;un-nest
-          ((< nest prev-nest)
-           (pop org-export-generic-section-stack) ;;done with prev nested
-           (if prev-suffix (insert prev-suffix))
-           (unless ;;is there a prior list we're re-joining of this type and nest
-               (loop with prior-type and prior-nest
-                  for prior in org-export-generic-section-stack
-                  do (setq prior-type (nth 0 prior))
-                  do (setq prior-nest (nth 2 prior))
-                  if (and (string= type prior-type) (= nest prior-nest)) return t
-                  else do (pop org-export-generic-section-stack)) ;;jump over this one
-             ;;didn't find a list to rejoin, this is a new one
-             (push-section type suffix nest)
-             (if prefix (insert prefix))))
-          (t ;;change type, same indent
-           (pop org-export-generic-section-stack)
-           (push-section type suffix nest)
-           (if prev-suffix (insert prev-suffix))
-           (if prefix (insert prefix)))))))))
+
+  (when (not (equal type org-export-generic-section-type))
+    (if org-export-generic-section-suffix
+      (insert org-export-generic-section-suffix))
+    (setq org-export-generic-section-type type)
+    (setq org-export-generic-section-suffix suffix)
+    (if prefix
+	(insert prefix))))
 
 ;;;###autoload
-(defun org-export-generic (arg &optional export-plist)
+(defun org-export-generic (arg)
   "Export the outline as generic output.
 If there is an active region, export only the region.
 The prefix ARG specifies how many levels of the outline should become
 underlined headlines.  The default is 3."
   (interactive "P")
-  (setq org-export-generic-section-stack nil)
   (setq-default org-todo-line-regexp org-todo-line-regexp)
   (let* ((opt-plist (org-combine-plists (org-default-export-plist)
 					(org-infile-export-plist)))
@@ -620,7 +597,6 @@ underlined headlines.  The default is 3."
 
 	 ;; read in the type to use
 	 (export-plist
-          (or export-plist
 	  (progn
 	    (save-excursion
 	      (save-window-excursion
@@ -637,7 +613,7 @@ underlined headlines.  The default is 3."
 
 	    (cdr (assoc
 		  (if (equal ass "default") org-generic-export-type ass)
-		  org-generic-alist)))))
+		  org-generic-alist))))
 
 	 (custom-times org-display-custom-times)
 	 (org-generic-current-indentation '(0 . 0))
@@ -746,8 +722,7 @@ underlined headlines.  The default is 3."
 	 (bodylineform  (or (plist-get export-plist :body-line-format) "%s"))
          (blockquotestart (or (plist-get export-plist :blockquote-start) "\n\n\t"))
          (blockquoteend (or (plist-get export-plist :blockquote-end) "\n\n"))
-         (listindents (or (plist-get export-plist :list-indents) org-export-generic-list-indents))
-         
+
          ;; dynamic variables used heinously in fontification
          ;; not referenced locally...
          (format-boldify (plist-get export-plist :bold-format))
@@ -996,7 +971,7 @@ underlined headlines.  The default is 3."
             ;; if the bullet list item is an asterisk, the leading space is /mandatory/
             ;; [2010/02/02:rpg]
             (string-match "^\\([ \t]+\\)\\(\\*[ \t]*\\)" line))
-	
+	;;
 	;; plain list item
 	;; TODO: nested lists
 	;;
@@ -1005,14 +980,13 @@ underlined headlines.  The default is 3."
         (when bodynewline-paragraph
           (insert bodynewline-paragraph))
 
-        (setq line-indent (length (match-string 1 line)))
         ;; I believe this gets rid of leading whitespace.
 	(setq line (replace-match "" nil nil line))
 
         ;; won't this insert the suffix /before/ the last line of the list?
         ;; also isn't it spoofed by bulleted lists that have a line skip between the list items
         ;; unless 'org-empty-line-terminates-plain-lists' is true?
-	(org-export-generic-check-section "liststart" listprefix listsuffix line-indent)
+	(org-export-generic-check-section "liststart" listprefix listsuffix)
 
 	;; deal with checkboxes
 	(cond
@@ -1027,19 +1001,17 @@ underlined headlines.  The default is 3."
 			     listcheckhalfend)))
 	 )
 
-	(insert (format listformat (concat "%s" listformat)
-                        (org-export-generic-section-indent
-                         (cdr-safe org-export-generic-section-stack) listindents)
-                        (org-export-generic-fontify line))))
-       ((string-match "^\\([ \t]*\\)\\(\\(?:[0-9]+\\|[a-zA-Z]\\)[.)][ \t]*\\)" line)
+	(insert (format listformat (org-export-generic-fontify line))))
+       ((string-match "^\\([ \t]+\\)\\([0-9]+\\.[ \t]*\\)" line)
 	;;
 	;; numbered list item
 	;;
-        (setq line-indent (length (match-string 1 line)))
+	;; TODO: nested lists
+	;;
 	(setq line (replace-match (if numlistleavenum "\\2" "") nil nil line))
 
 	(org-export-generic-check-section "numliststart"
-                                          numlistprefix numlistsuffix line-indent)
+					  numlistprefix numlistsuffix)
 
 	;; deal with checkboxes
 	;; TODO: whoops; leaving the numbers is a problem for ^ matching
@@ -1055,10 +1027,7 @@ underlined headlines.  The default is 3."
 			     listcheckhalfend)))
 	 )
 
-	(insert (format (concat "%s" numlistformat)
-                        (org-export-generic-section-indent
-                         (cdr-safe org-export-generic-section-stack) listindents)
-                        (org-export-generic-fortify line))))
+	(insert (format numlistformat (org-export-generic-fontify line))))
 
        ((equal line "ORG-BLOCKQUOTE-START")
         (setq line blockquotestart))
