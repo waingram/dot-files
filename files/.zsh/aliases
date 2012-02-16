@@ -14,8 +14,8 @@ alias lal='ls -lah'
 alias s='git status -sb $argv; return 0'
 alias d='gd $argv'
 alias m='mate . $argv'
-alias emacs='/usr/bin/emacsclient.emacs-snapshot -c $argv &'
-alias e='emacs'
+alias emacs='/usr/bin/emacsclient.emacs-snapshot -c'
+alias e='emacs $argv &'
 
 alias df='df -kh $argv'
 alias reload_webkit='osascript -e 'tell application "WebKit" to do JavaScript "window.location.reload()" in front document''
@@ -23,5 +23,5 @@ alias tigs='tig status $argv'
 
 alias rs="bundle exec rake spec"
 
-alias add_alias='mate -w ~/.zsh/aliases; cd ~/.dot-files; ga files/.zsh/aliases; gc'
-alias git_alias='mate -w ~/.zsh/git_aliases; cd ~/.dot-files; ga files/.zsh/git_aliases; gc'
+alias add_alias='emacs ~/.zsh/aliases; cd ~/.dot-files; ga files/.zsh/aliases; gc'
+alias git_alias='emacs ~/.zsh/git_aliases; cd ~/.dot-files; ga files/.zsh/git_aliases; gc'
