@@ -13,6 +13,8 @@ if [ $(uname -s) = 'Darwin' ]; then
   export MANPATH="/usr/local/share/man:/usr/X11/man:/usr/share/man"
 else
   export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+  export EDITOR='/usr/bin/emacsclient.emacs-snapshot'
+  export ALTERNATE_EDITOR=''
 fi
 
 # Lines configured by zsh-newuser-install

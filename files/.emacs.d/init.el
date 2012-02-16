@@ -45,8 +45,10 @@
 (fullscreen)
 
 ;; zenburn ( until they fix it in marmalade )
-(load
- (expand-file-name "~/.emacs.d/elisp/zenburn-theme-1.2.el"))
+;; (load
+;; (expand-file-name "~/.emacs.d/elisp/zenburn-theme-1.2.el"))
+
+(load-theme 'wombat)
 
 ;; org stuff
 (add-hook 'org-mode-hook
@@ -152,3 +154,5 @@
 '(org-agenda-files (quote ("~/Dropbox/work/org/work-log.org")))
 
 (find-file (expand-file-name "~/Dropbox/work/org/ideals-todo.org"))
+
+(server-start)
