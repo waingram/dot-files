@@ -14,7 +14,7 @@ alias lal='ls -lah'
 alias s='git status -sb $argv; return 0'
 alias d='gd $argv'
 alias m='mate . $argv'
-alias emacs='emacs -nw'
+alias emacs='/usr/bin/emacsclient.emacs-snapshot -c $argv &'
 alias e='emacs'
 
 alias df='df -kh $argv'
