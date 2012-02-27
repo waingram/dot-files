@@ -1,0 +1,18 @@
+#Base path of Tomcat 
+export CATALINA_HOME=$HOME/tomcat 
+#Base path of Ant 
+export ANT_HOME=$HOME/ant 
+#Base path of JAVA JDK and JRE 
+export JAVA_HOME=$HOME/java/jdk 
+export JRE_HOME=$JAVA_HOME/jre 
+#Gives Tomcat access to Java SSL Libraries 
+export JSSE_HOME=$JRE_HOME/lib 
+#Ensures Tomcat and DSpace have enough memory and use UTF-8 
+export CATALINA_OPTS="-server -Xms1024M -Xmx1024M -Dfile.encoding=UTF-8" 
+#Add Tomcat, Ant and Java 'bin' directories to PATH 
+export PATH=$JRE_HOME/bin:$JAVA_HOME/bin:$ANT_HOME/bin:$CATALINA_HOME/bin:$PATH 
+#Add Maven 'bin' directory to PATH 
+export MAVEN_HOME=$HOME/maven 
+export PATH=$MAVEN_HOME/bin:$PATH
+ #Give Maven more memory to work with and use UTF-8 
+export MAVEN_OPTS="-Xmx512M -Xms512M -Dfile.encoding=UTF-8"

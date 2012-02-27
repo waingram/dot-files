@@ -3,6 +3,7 @@ setopt hist_ignore_dups
 
 . ~/.zsh/prompt
 . ~/.zsh/aliases
+. ~/.zsh/env
 . ~/.zsh/git_aliases
 . ~/.zsh/functions
 
