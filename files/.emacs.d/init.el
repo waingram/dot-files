@@ -51,6 +51,13 @@
 (load-theme 'wombat)
 
 ;; org stuff
+(setq load-path (cons "~/.emacs.d/elisp/org-mode/lisp" load-path))
+(setq load-path (cons "~/.emacs.d/elisp/org-mode/contrib/lisp" load-path))
+(require 'org-install)
+
+(setq load-path (cons "~/.emacs.d/elisp/org-confluence" load-path))
+(require 'org-confluence)
+
 (add-hook 'org-mode-hook
           '(lambda ()
              (define-key org-mode-map "\C-ca"
