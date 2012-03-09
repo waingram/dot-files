@@ -163,3 +163,43 @@
 (find-file (expand-file-name "~/Dropbox/work/org/ideals-todo.org"))
 
 (server-start)
+
+;; setup align for ruby-mode
+(require 'align)
+
+(defconst align-ruby-modes '(ruby-mode)
+  "align-perl-modes is a variable defined in `align.el'.")
+
+(defconst ruby-align-rules-list
+  '((ruby-comma-delimiter
+     (regexp . ",\\(\\s-*\\)[^/ \t\n]")
+     (modes  . align-ruby-modes)
+     (repeat . t))
+    (ruby-string-after-func
+     (regexp . "^\\s-*[a-zA-Z0-9.:?_]+\\(\\s-+\\)['\"]\\w+['\"]")
+     (modes  . align-ruby-modes)
+     (repeat . t))
+    (ruby-symbol-after-func
+     (regexp . "^\\s-*[a-zA-Z0-9.:?_]+\\(\\s-+\\):\\w+")
+     (modes  . align-ruby-modes)))
+  "Alignment rules specific to the ruby mode.
+See the variable `align-rules-list' for more details.")
+
+(add-to-list 'align-perl-modes 'ruby-mode)
+(add-to-list 'align-dq-string-modes 'ruby-mode)
+(add-to-list 'align-sq-string-modes 'ruby-mode)
+(add-to-list 'align-open-comment-modes 'ruby-mode)
+(dolist (it ruby-align-rules-list)
+  (add-to-list 'align-rules-list it))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files (quote ("~/Dropbox/work/org/ideals-todo.org"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
