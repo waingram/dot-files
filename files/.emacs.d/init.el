@@ -76,40 +76,53 @@
 ;; Export for twiki
 (org-set-generic-type
  "twiki"
- '(:file-suffix        	    ".txt"
-     :key-binding                   ?T
+ '(:file-suffix     ".twiki"
+                    :key-binding     ?K
+                    :header-prefix		    ""
+                    :header-suffix		    "---\n\n"
+                    :title-format		    "---+ %s\n"
+                    
+                    :date-export		    nil   
+                    :toc-export		    nil
 
-     :header-prefix            	    ""
-     :header-suffix            	    ""
+                    :timestamps-export           t
+                    :priorities-export           t
+                    :todo-keywords-export        t
+                    :author-export             t
+                    :tags-export               t
+                    
+                    :body-header-section-numbers   nil
+                    :body-section-prefix	    "\n"
 
-     :title-format             	    ""
-
-     :date-export        	        t
-     :date-format                   ""
-
-     :toc-export                    nil
-
-     :body-header-section-numbers   nil
-     :body-section-prefix           "\n"
-
-     :body-section-header-prefix    ("---+ " "---++ "
-				     "---+++ " "---++++ " "---+++++ ")
-     :body-section-header-suffix    ("\n" "\n" "\n" "\n" "\n")
-
-     :body-line-export-preformated  t          ;; yes/no/maybe???
-     :body-line-format              "%s\n"
-     :body-line-wrap                75
-
-     :body-line-fixed-prefix       "<verbatim>\n"
-     :body-line-fixed-format       "%s\n"
-     :body-line-fixed-suffix       "</verbatim>\n"
-
-     :body-list-format              "%s\n"
-     :body-number-list-format       "  # %s\n"
-
-     :body-bullet-list-prefix       ("   * " "      * " "         * "
-                                     "            * " "               * ")
-     )
+                    :body-section-header-prefix    ("---++ " "---+++ " "---++++ "
+                                                    "---+++++ " "---++++++ ")
+                    :body-section-header-suffix    "\n\n"
+                    
+                    :body-line-export-preformated t
+                    :body-line-fixed-prefix       "<VERBATIM>\n"
+                    :body-line-fixed-suffix       "\n</VERBATIM>\n"
+                    :body-line-fixed-format       "%s\n"
+                    
+                                        ; other body lines
+                    :body-line-format             "%s\n"
+                    :body-line-wrap               80	
+                    
+                    ;; TN: apparently hierarchies of lists are not taken into account
+                    ;; (all items displayed on the same level) 
+                    :body-list-format             "   * %s\n"
+                    :body-number-list-format      "   1.%s\n"
+                    :body-number-list-leave-number nil
+                    
+                    :body-bullet-list-prefix    ?\s
+                    :body-bullet-list-format    "* %s\n"
+                    
+                    :body-list-checkbox-todo	"%P% "
+                    :body-list-checkbox-todo-end	""
+                    :body-list-checkbox-done	"%Y%"
+                    :body-list-checkbox-done-end	""
+                    :body-list-checkbox-half	":wip:"
+                    :body-list-checkbox-half-end	""
+                    )
  )
 
 ;; Export for confluence
