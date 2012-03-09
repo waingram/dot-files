@@ -1,0 +1,6 @@
+[submodule "files/.emacs.d/elisp/org-confluence"]
+	path = files/.emacs.d/elisp/org-confluence
+	url = git://github.com/waingram/org-confluence
+[submodule "files/.emacs.d/elisp/org-mode"]
+	path = files/.emacs.d/elisp/org-mode
+	url = git://repo.or.cz/org-mode.git
