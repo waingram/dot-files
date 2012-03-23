@@ -31,6 +31,9 @@ bind "set show-all-if-ambiguous On"
 # coloured ls
 if [ "$TERM" != "dumb" ]; then
   if [ $system_name == 'Linux' ]; then
+
+    [ -z "$TMUX" ] && export TERM=xterm-256color
+
     color_option='--color=auto'
 
     alias du='du -k --max-depth=1'
