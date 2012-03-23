@@ -67,3 +67,5 @@ alias less='less -R'
 if [ -x /usr/games/fortune ]; then
     /usr/games/fortune -s
 fi
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
