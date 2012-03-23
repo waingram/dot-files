@@ -21,6 +21,8 @@
                       starter-kit-lisp
                       starter-kit-bindings
                       starter-kit-eshell
+                      css-mode
+                      ruby-mode
                       clojure-mode
                       markdown-mode
                       sass-mode
@@ -28,7 +30,7 @@
                       yasnippet
                       yaml-mode
                       ))
- 
+
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
@@ -36,11 +38,11 @@
 
 ;; fullscreen
 (defun fullscreen (&optional f)
-       (interactive)
-       (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+  (interactive)
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
 	    		 '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
-       (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                              '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0)))
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                         '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0)))
 
 (fullscreen)
 
@@ -49,6 +51,8 @@
 ;; (expand-file-name "~/.emacs.d/elisp/zenburn-theme-1.2.el"))
 
 (load-theme 'wombat)
+
+(global-linum-mode t)
 
 ;; org stuff
 (setq load-path (cons "~/.emacs.d/elisp/org-mode/lisp" load-path))
@@ -76,99 +80,53 @@
 ;; Export for twiki
 (org-set-generic-type
  "twiki"
- '(:file-suffix     ".twiki"
-                    :key-binding     ?K
-                    :header-prefix		    ""
-                    :header-suffix		    "---\n\n"
-                    :title-format		    "---+ %s\n"
-                    
-                    :date-export		    nil   
-                    :toc-export		    nil
+ '(
+:file-suffix                    ".twiki"
+:key-binding                    ?K
+:header-prefix                  ""
+:header-suffix                  "---\n\n"
+:title-format                   "---+ %s\n"
 
-                    :timestamps-export           t
-                    :priorities-export           t
-                    :todo-keywords-export        t
-                    :author-export             t
-                    :tags-export               t
-                    
-                    :body-header-section-numbers   nil
-                    :body-section-prefix	    "\n"
+:date-exportnil                 
+:toc-exportnil
 
-                    :body-section-header-prefix    ("---++ " "---+++ " "---++++ "
-                                                    "---+++++ " "---++++++ ")
-                    :body-section-header-suffix    "\n\n"
-                    
-                    :body-line-export-preformated t
-                    :body-line-fixed-prefix       "<VERBATIM>\n"
-                    :body-line-fixed-suffix       "\n</VERBATIM>\n"
-                    :body-line-fixed-format       "%s\n"
-                    
-                                        ; other body lines
-                    :body-line-format             "%s\n"
-                    :body-line-wrap               80	
-                    
-                    ;; TN: apparently hierarchies of lists are not taken into account
-                    ;; (all items displayed on the same level) 
-                    :body-list-format             "   * %s\n"
-                    :body-number-list-format      "   1.%s\n"
-                    :body-number-list-leave-number nil
-                    
-                    :body-bullet-list-prefix    ?\s
-                    :body-bullet-list-format    "* %s\n"
-                    
-                    :body-list-checkbox-todo	"%P% "
-                    :body-list-checkbox-todo-end	""
-                    :body-list-checkbox-done	"%Y%"
-                    :body-list-checkbox-done-end	""
-                    :body-list-checkbox-half	":wip:"
-                    :body-list-checkbox-half-end	""
-                    )
- )
+:timestamps-export              t
+:priorities-export              t
+:todo-keywords-export           t
+:author-export                  t
+:tags-export                    t
 
-;; Export for confluence
-(org-set-generic-type
- "confluence"
- '(:file-suffix        	    ".txt"
-     :key-binding                   ?C
+:body-header-section-numbers    nil
+:body-section-prefix            "\n"
 
-     :header-prefix            	    ""
-     :header-suffix            	    ""
+:body-section-header-prefix     ("---++ " "---+++ " "---++++ " "---+++++" "---++++++ ")
+:body-section-header-suffix     "\n\n"
 
-     :title-format             	    "{panel:bgColor=#f0f0f0}\n{toc:outline=true|style=none|indent=10px}\n{panel}\n\n"
+:body-line-export-preformated   t
+:body-line-fixed-prefix         "<VERBATIM>\n"
+:body-line-fixed-suffix         "\n</VERBATIM>\n"
+:body-line-fixed-format         "%s\n"
 
-     :date-export        	        t
-     :date-format                   ""
+;; other body lines
+:body-line-format               "%s\n"
+:body-line-wrap                 80
 
-     :toc-export                    nil
+;; TN: apparently hierarchies of lists are not taken into account
+;; (all items displayed on the same level) 
+:body-list-format               " * %s\n"
+:body-number-list-format        " 1.%s\n"
+:body-number-list-leave-number  nil
 
-     :body-header-section-numbers   nil
-     :body-section-prefix           ""
-     :body-section-suffix           "\n"
+:body-bullet-list-prefix        ?\s
+:body-bullet-list-format        "* %s\n"
 
-     :body-section-header-prefix    ("h1. " "h2. " "h3. " "h4. " "h5. ")
-     :body-section-header-suffix    ("\n" "\n" "\n" "\n" "\n")
-
-     :body-line-export-preformated  t          ;; yes/no/maybe???
-     :body-line-format              "%s\n"
-     :body-line-wrap                75
-
-     :body-line-fixed-prefix        "{{"
-     :body-line-fixed-format        "%s"
-     :body-line-fixed-suffix        "}}"
-
-     :body-list-format              "%s\n"
-     :body-number-list-format       "# %s\n"
-
-     :body-bullet-list-prefix       ("* " "** " "*** " "**** " "***** ")
-
-     :body-list-checkbox-todo       "{{\[ \]}} "
-     :body-list-checkbox-todo-end   ""
-     :body-list-checkbox-done       "{{\[X\]}} "
-     :body-list-checkbox-done-end   ""
-     :body-list-checkbox-half       "{{\[-\]}} "
-     :body-list-checkbox-half-end   ""
-
-     )
+:body-list-checkbox-todo        "%P% "
+:body-list-checkbox-todo-end    ""
+:body-list-checkbox-done        "%Y%"
+:body-list-checkbox-done-end    ""
+:body-list-checkbox-half        ":wip:"
+:body-list-checkbox-half-end	""   
+   )
  )
 
 '(org-agenda-files (quote ("~/Dropbox/work/org/work-log.org")))
@@ -210,9 +168,13 @@ See the variable `align-rules-list' for more details.")
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files (quote ("~/Dropbox/work/org/ideals-todo.org"))))
+
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'upcase-region 'disabled nil)
