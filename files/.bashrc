@@ -12,6 +12,7 @@ if [ $system_name == 'Linux' ]; then
   [ -f /etc/bash_completion ] && . /etc/bash_completion
 
   export EDITOR='vim'
+  export JAVA_HOME=/usr/lib/jvm/java-6-sun
 else
   [ -f /opt/local/etc/bash_completion ] && . /opt/local/etc/bash_completion
 
