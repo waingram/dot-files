@@ -4,6 +4,7 @@
 [submodule "files/.emacs.d/elisp/org-mode"]
 	path = files/.emacs.d/elisp/org-mode
 	url = git://repo.or.cz/org-mode.git
-[submodule "modules/zsh-completions"]
-	path = modules/zsh-completions
+
+[submodule "files/.zsh/zsh-completions"]
+	path = files/.zsh/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions.git
