@@ -1,3 +1,64 @@
+# Global .gitignore
+
+# Maven
+target/
+
+# NetBeans files
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# IntelliJ IDEA files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Class Files
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# Windows image file caches
+Thumbs.db 
+
+# Folder config file
+Desktop.ini
+
+# OSX
 .DS_Store
-.rbx/
-.config/*
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Linux
+.*
+!.gitignore
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
+
+# Ruby
+*.gem
+*.rbx
+
+
