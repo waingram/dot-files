@@ -6,6 +6,19 @@ setopt hist_ignore_dups
 . ~/.zsh/env
 . ~/.zsh/git_aliases
 . ~/.zsh/functions
+. ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+. ~/.zsh/zsh-history-substring-search.zsh
+
+fpath=($HOME/.zsh/zsh-completions $fpath)
+
+zstyle ':completion:*:mvn:*' show-all-phases true
+zstyle ':completion:*:mvn:*' show-full-form-plugins true
+zstyle ':completion:*:*:mvn:*:matches' group 'yes'
+zstyle ':completion:*:*:mvn:*:options' description 'yes'
+zstyle ':completion:*:*:mvn:*:options' auto-description '%d'
+zstyle ':completion:*:*:mvn:*:descriptions' format $'\e[1m -- %d --\e[22m'
+zstyle ':completion:*:*:mvn:*:messages' format $'\e[1m -- %d --\e[22m'
+zstyle ':completion:*:*:mvn:*:warnings' format $'\e[1m -- No matches found --\e[22m'
 
 if [ $(uname -s) = 'Darwin' ]; then
   export LANG="en_AU.UTF-8"
@@ -30,7 +43,7 @@ unsetopt autocd
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/wingram2/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -48,8 +61,6 @@ bindkey "\e\e[D"  backward-word
 bindkey '^' self-insert-backslash
 function self-insert-backslash() { LBUFFER+='\'; zle .self-insert }
 zle -N self-insert-backslash
-
-cdpath=(.. ~ ~/Projects ~/Code ~/Dropbox)
 
 [[ -d "$HOME/.rbenv" ]] && export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 
