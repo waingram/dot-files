@@ -2,7 +2,7 @@
         name = Bill Ingram
         email = waingram@gmail.com
 [core]
-	excludesfile = $HOME/.gitignore
+	excludesfile = ~/.gitignore
 [github]
 	user = waingram
 	token = xxx
