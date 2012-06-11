@@ -7,7 +7,7 @@ setopt hist_ignore_dups
 . ~/.zsh/git_aliases
 . ~/.zsh/functions
 . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-. ~/.zsh/zsh-history-substring-search.zsh
+. ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 fpath=($HOME/.zsh/zsh-completions $fpath)
 
