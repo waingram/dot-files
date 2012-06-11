@@ -44,7 +44,7 @@
   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
                          '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0)))
 
-(fullscreen)
+;; (fullscreen)
 
 ;; zenburn ( until they fix it in marmalade )
 ;; (load
@@ -162,13 +162,33 @@ See the variable `align-rules-list' for more details.")
 (add-to-list 'align-open-comment-modes 'ruby-mode)
 (dolist (it ruby-align-rules-list)
   (add-to-list 'align-rules-list it))
+
+
+;; Zulu date
+(defun insert-date-time ()
+  "Insert current date-time string in full
+ISO 8601 format.
+Example: 2010-11-29T23:23:35-08:00
+See: URL `http://en.wikipedia.org/wiki/ISO_8601'
+"
+  (interactive)
+  (when (region-active-p)
+    (delete-region (region-beginning) (region-end) )
+    )
+  (insert
+   (concat
+    (format-time-string "%Y-%m-%dT%T")
+    ((lambda (x) (concat (substring x 0 3) ":" (substring x 3 5)))
+     (format-time-string "%z")))))
+
+
+;; 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files (quote ("~/Dropbox/work/org/ideals-todo.org"))))
-
 
 
 (custom-set-faces

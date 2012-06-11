@@ -11,12 +11,15 @@ alias ll='ls -lh'
 alias la='ls -a'
 alias lal='ls -lah'
 
+alias lc='ls |wc -l'
+
 alias s='git status -sb $argv; return 0'
 alias d='gd $argv'
 alias m='mate . $argv'
 alias e='emacsclient -n'
 
 alias df='df -kh $argv'
+alias du='du -kh $argv'
 alias reload_webkit='osascript -e 'tell application "WebKit" to do JavaScript "window.location.reload()" in front document''
 alias tigs='tig status $argv'
 

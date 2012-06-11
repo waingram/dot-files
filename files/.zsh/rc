@@ -62,6 +62,7 @@ bindkey '^' self-insert-backslash
 function self-insert-backslash() { LBUFFER+='\'; zle .self-insert }
 zle -N self-insert-backslash
 
+
 [[ -d "$HOME/.rbenv" ]] && export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" 
@@ -69,3 +70,29 @@ zle -N self-insert-backslash
 if [ -x /usr/games/fortune ]; then
     /usr/games/fortune -s
 fi
+
+
+# irssi stuff
+# create the pane with irssi's nicklist
+function irssi_nickpane() {
+    tmux renamew irssi                                              # name the window
+    tmux -q setw main-pane-width $(( $(tput cols) - 21))            # set the main pane width to the total width-20
+    tmux splitw -v "cat ~/.irssi/nicklistfifo"                      # create the window and begin reading the fifo
+    tmux -q selectl main-vertical                                   # assign the layout
+    tmux selectw -t irssi                                           # select window 'irssi'
+    tmux selectp -t 0                                               # select pane 0
+}
+
+# irssi wrapper
+function irssi() {
+    irssi_nickpane
+    /usr/bin/irssi                                                  # launch irssi
+}
+
+# repair running irssi's nicklist pane
+function irssi_repair() {
+    tmux selectw -t irssi
+    tmux selectp -t 0
+    tmux killp -a                                                   # kill all panes
+    irssi_nickpane
+}
