@@ -10,12 +10,14 @@ alias l='ls'
 alias ll='ls -lh'
 alias la='ls -a'
 alias lal='ls -lah'
+alias lt='ls -tr'
+alias lat='ls -lahtr'
 
 alias lc='ls |wc -l'
 
 alias s='git status -sb $argv; return 0'
 alias d='gd $argv'
-alias m='mate . $argv'
+alias m='subl . $argv'
 alias e='emacsclient -n'
 
 alias df='df -kh $argv'
@@ -27,3 +29,10 @@ alias rs="bundle exec rake spec"
 
 alias add_alias='emacs ~/.zsh/aliases; cd ~/.dot-files; ga files/.zsh/aliases; gc'
 alias git_alias='emacs ~/.zsh/git_aliases; cd ~/.dot-files; ga files/.zsh/git_aliases; gc'
+
+alias mate=subl
+alias m='subl .'
+alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
+alias emacs="emacs -nw"
+alias more=less
+alias b='bundle exec'

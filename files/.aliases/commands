@@ -1,4 +1,6 @@
-alias m='mate .'
+alias mate=subl
+alias m='subl .'
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
 alias emacs="emacs -nw"
 alias more=less
+alias b='bundle exec'
