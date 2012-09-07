@@ -2,6 +2,7 @@
 
 # Maven
 target/
+overlays/
 
 # NetBeans files
 nbproject/private/

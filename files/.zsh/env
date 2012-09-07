@@ -8,8 +8,9 @@ else
         export ANT_HOME=$HOME/Applications/ant 
 
         #Base path of JAVA JDK and JRE 
-        export JAVA_HOME=/usr/lib/jvm/java-6-sun 
-        export JRE_HOME=$JAVA_HOME/jre 
+	#export JAVA_HOME=/usr/lib/jvm/java-6-sun
+        export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+	export JRE_HOME=$JAVA_HOME/jre 
 
 	#Gives Tomcat access to Java SSL Libraries 
 	export JSSE_HOME=$JRE_HOME/lib 

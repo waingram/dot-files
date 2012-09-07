@@ -21,19 +21,33 @@
                       starter-kit-lisp
                       starter-kit-bindings
                       starter-kit-eshell
+                      starter-kit-js
+                      apache-mode
+                      auto-indent-mode
                       css-mode
-                      ruby-mode
-                      clojure-mode
-                      markdown-mode
-                      sass-mode
                       haml-mode                      
-                      yasnippet
+                      groovy-mode
+                      less-css-mode
+                      markdown-mode
+                      python-mode
+                      sass-mode
+                      scss-mode
+                      ssh-config-mode
                       yaml-mode
                       ))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
+
+
+;; el-get
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(unless (require 'el-get nil t)
+  (url-retrieve "https://raw.github.com/dimitri/el-get/master/el-get-install.el"
+                (lambda (s)
+                  (goto-char (point-max))
+                  (eval-print-last-sexp))))
 
 
 ;; fullscreen
@@ -43,6 +57,8 @@
 	    		 '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
                          '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0)))
+
+(if (window-system) (set-frame-size (selected-frame) 96 60))
 
 ;; (fullscreen)
 
@@ -181,6 +197,43 @@ See: URL `http://en.wikipedia.org/wiki/ISO_8601'
     ((lambda (x) (concat (substring x 0 3) ":" (substring x 3 5)))
      (format-time-string "%z")))))
 
+;; Tramp
+(global-set-key
+ [f5]
+ (lambda ()
+   (interactive)
+   (find-file
+    (read-file-name
+     "Find Tramp file: "
+     "/ssh:ideals-dspace@sau:/services/ideals-dspace/"))))
+
+(global-set-key
+ [f6]
+ (lambda ()
+   (interactive)
+   (find-file
+    (read-file-name
+     "Find Tramp file: "
+     "/ssh:ideals-dspace@vanaheim-dev:/services/ideals-dspace/"))))
+
+(global-set-key
+ [f7]
+ (lambda ()
+   (interactive)
+   (find-file
+    (read-file-name
+     "Find Tramp file: "
+     "/ssh:ideals-etd@mimir:/services/ideals-etd/"))))
+
+(global-set-key
+ [f8]
+ (lambda ()
+   (interactive)
+   (find-file
+    (read-file-name
+     "Find Tramp file: "
+     "/ssh:ideals-etd@mimir-dev:/services/ideals-etd/"))))
+
 
 ;; 
 (custom-set-variables
@@ -196,5 +249,5 @@ See: URL `http://en.wikipedia.org/wiki/ISO_8601'
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:inherit nil :stipple nil :background "#242424" :foreground "#f6f3e8" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 104 :width normal :foundry "unknown" :family "Ubuntu Mono")))))
 (put 'upcase-region 'disabled nil)
