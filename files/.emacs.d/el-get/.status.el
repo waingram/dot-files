@@ -1,1 +1,0 @@
-(:el-get "installed" :yasnippet "required" :yasnippet-config "installed")
