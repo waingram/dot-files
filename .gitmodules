@@ -1,9 +1,3 @@
-[submodule "files/.emacs.d/elisp/org-confluence"]
-	path = files/.emacs.d/elisp/org-confluence
-	url = git://github.com/waingram/org-confluence
-[submodule "files/.emacs.d/elisp/org-mode"]
-	path = files/.emacs.d/elisp/org-mode
-	url = git://repo.or.cz/org-mode.git
 [submodule "files/.zsh/zsh-completions"]
 	path = files/.zsh/zsh-completions
 	url = git://github.com/zsh-users/zsh-completions.git
@@ -13,3 +7,6 @@
 [submodule "files/.zsh/zsh-history-substring-search"]
 	path = files/.zsh/zsh-history-substring-search
 	url = git://github.com/zsh-users/zsh-history-substring-search.git
+[submodule "files/.emacs.d"]
+	path = files/.emacs.d
+	url = git://github.com/demon386/emacs.d.git
