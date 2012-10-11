@@ -1,5 +1,9 @@
 if [ $(uname -s) = 'Darwin' ]; then
 	export PATH=$HOME/bin:$PATH
+	
+	#PostgreSQL.app
+	export PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"
+	
 else
         #Base path of Tomcat 
         export CATALINA_HOME=$HOME/Applications/tomcat 
