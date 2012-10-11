@@ -7,6 +7,3 @@
 [submodule "files/.zsh/zsh-history-substring-search"]
 	path = files/.zsh/zsh-history-substring-search
 	url = git://github.com/zsh-users/zsh-history-substring-search.git
-[submodule "files/.emacs.d"]
-	path = files/.emacs.d
-	url = git://github.com/demon386/emacs.d.git
