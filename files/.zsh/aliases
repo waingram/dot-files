@@ -6,7 +6,6 @@ else
   alias du='du -k --max-depth=1 $argv'
 fi
 
-alias l='ls'
 alias ll='ls -lh'
 alias la='ls -a'
 alias lal='ls -lah'
